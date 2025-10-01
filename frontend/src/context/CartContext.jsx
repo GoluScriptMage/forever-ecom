@@ -8,6 +8,7 @@ export const useCartContext = () => useContext(cartContext)
 
 const CartContextProvider = ({ children }) => {
   const productList = products.slice(0, 10)
+  const bestSeller = products.filter((item) => item.bestseller === true);
   console.log(`CartContextProvider products:`, productList)
 
   // You can add more state and functions here as needed
@@ -16,6 +17,7 @@ const CartContextProvider = ({ children }) => {
     currency: '$',
     deliveryFee: 10,
     products: productList,
+    bestSeller: bestSeller?.slice(0, 5),
   }
 
   return <cartContext.Provider value={values}>{children}</cartContext.Provider>
