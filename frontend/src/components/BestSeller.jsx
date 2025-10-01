@@ -3,25 +3,26 @@ import React from 'react'
 import ProductItems from './ProductItems'
 import Title from './Title'
 
-const LatestCollection = () => {
-  const { products, currency } = useCartContext()
+const BestSeller = () => {
+  const { bestSeller, currency } = useCartContext()
+  console.log('BestSeller component bestSeller:', bestSeller)
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <Title
-          text1="LATEST"
+          text1="BestSeller"
           text2="COLLECTION"
-          description="Discover our newest arrivals featuring the latest trends and premium quality pieces"
+          description="Discover our top-selling products that our customers love the most."
         />
 
         {/* Products Grid */}
         <div className="mt-12">
-          {products && products.length > 0 ? (
+          {bestSeller && bestSeller.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6 sm:gap-6 lg:gap-8">
-              {/* <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8"> */}
-              {products.slice(0, 10).map(product => (
+              {' '}
+              {bestSeller.map(product => (
                 <div key={product._id} className="animate-fade-in">
                   <ProductItems product={product} currency={currency} />
                 </div>
@@ -30,7 +31,7 @@ const LatestCollection = () => {
           ) : (
             // Loading skeleton or empty state
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
-              {[...Array(10)].map((_, index) => (
+              {[...Array(5)].map((_, index) => (
                 <div key={index} className="animate-pulse">
                   <div className="bg-gray-200 rounded-lg h-64 sm:h-72 mb-3"></div>
                   <div className="space-y-2">
@@ -65,7 +66,7 @@ const LatestCollection = () => {
       </div>
 
       {/* Add custom CSS for animations */}
-      <style>{`
+      <style jsx>{`
         @keyframes fade-in {
           from {
             opacity: 0;
@@ -99,4 +100,4 @@ const LatestCollection = () => {
   )
 }
 
-export default LatestCollection
+export default BestSeller
