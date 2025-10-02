@@ -15,7 +15,7 @@ const LatestCollection = () => {
           text2="COLLECTION"
           description="Discover our newest arrivals featuring the latest trends and premium quality pieces"
         />
-
+˳
         {/* Products Grid */}
         <div className="mt-12">
           {products && products.length > 0 ? (
@@ -33,7 +33,7 @@ const LatestCollection = () => {
               {[...Array(10)].map((_, index) => (
                 <div key={index} className="animate-pulse">
                   <div className="bg-gray-200 rounded-lg h-64 sm:h-72 mb-3"></div>
-                  <div className="space-y-2">
+                  <div className="space-y-2">˳
                     <div className="h-4 bg-gray-200 rounded w-3/4 mx-auto"></div>
                     <div className="h-4 bg-gray-200 rounded w-1/2 mx-auto"></div>
                   </div>
