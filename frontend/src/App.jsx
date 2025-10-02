@@ -9,6 +9,7 @@ import Collection from './pages/Collection'
 import Login from './pages/Login'
 import Product from './pages/Product'
 import Orders from './pages/Orders'
+import Footer from './components/Footer'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/collection" element={<Collection />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+      <Footer />
     </div>
   )
 }
