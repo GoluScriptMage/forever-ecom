@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets.js'
 import { Link, NavLink } from 'react-router-dom'
+import { useCartContext } from '../context/cartContext.jsx'
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false)
-  // TODO: Add user authentication state
   // NOTE: Consider adding search functionality
+
+  const { setSearchVisible, searchVisible } = useCartContext();
 
   return (
     // logo
@@ -40,6 +42,7 @@ const Navbar = () => {
           src={assets.search_icon}
           className="w-5 cursor-pointer"
           alt="Search"
+          onClick={() => setSearchVisible(!searchVisible)}
         />
 
         <div className="group relative">
