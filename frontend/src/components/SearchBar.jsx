@@ -4,13 +4,13 @@ import { useCartContext } from '../context/cartContext'
 import { useLocation } from 'react-router-dom'
 
 const SearchBar = () => {
-  const { searchVisible, setSearchVisible } = useCartContext()
+  const { searchVisible, setSearchVisible, setSearchQuery, searchQuery } =
+    useCartContext()
   const location = useLocation().pathname
   const inputRef = useRef(null)
+
   // focus the input when search becomes visible
   const isCollection = location === '/collection'
-
-  console.log(`Input Ref: ${inputRef?.current.value}`);
 
   // focus the input when search becomes visible
   useEffect(() => {
@@ -23,6 +23,13 @@ const SearchBar = () => {
     return undefined
   }, [searchVisible, isCollection])
 
+  // Update SeachQuery in Context using Ref
+  const handleInput = () => {
+    if (!inputRef.current) return;
+    const value = inputRef.current.value // get the current value of Input
+    setSearchQuery(value) // update the context value
+  }
+
   // Hide searchBar in other routes (after hooks to preserve hook order)
   if (!isCollection) return null
 
@@ -30,7 +37,9 @@ const SearchBar = () => {
     // keep mounted; animate open/close with max-height + opacity + translate
     <div
       className={`w-full px-4 sm:px-6 md:px-0 bg-gray-50 overflow-hidden transition-[max-height,opacity,transform] duration-200 ease-out ${
-        searchVisible ? 'max-h-40 opacity-100 translate-y-0 py-4' : 'max-h-0 opacity-0 -translate-y-2 py-0'
+        searchVisible
+          ? 'max-h-40 opacity-100 translate-y-0 py-4'
+          : 'max-h-0 opacity-0 -translate-y-2 py-0'
       }`}
       aria-hidden={!searchVisible}
     >
@@ -47,6 +56,8 @@ const SearchBar = () => {
 
               <input
                 ref={inputRef}
+                value={searchQuery}
+                onInput={handleInput}
                 type="search"
                 placeholder="Search products..."
                 className="w-full pl-10 pr-4 py-2 sm:py-3 rounded-lg border border-gray-200 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-200"

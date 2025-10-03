@@ -12,8 +12,8 @@ const Collection = () => {
     category: [],
     subCategory: [],
   })
-  const [filteredProducts, setFilteredProducts] = useState([])
-  const { products, currency, search } = useCartContext()
+  const [filteredProducts, setFilteredProducts] = useState([]); // For Final Filtered Products ready to display
+  const { products, currency, searchQuery } = useCartContext();
 
   // To save the checkbox changes in State
   const toggleFilter = (filterType, value) => {
@@ -25,29 +25,36 @@ const Collection = () => {
       return { ...prev, [filterType]: newValues }
     })
   }
+  
   // To apply the filters when needed (e.g.. on button click)
   useEffect(() => {
     // Create a copy of products to filter
-    let filteredProducts = [...products]
+    let filteredProducts = [...products];
+
+    // Apply filters on Search Query first
+    if (searchQuery) {
+      console.log(`Filtering by search query: ${searchQuery}`);
+      filteredProducts = filteredProducts.filter(pr => pr.name.toLowerCase().split(' ').some(word => word.startsWith(searchQuery.trim().toLowerCase())));
+    }
 
     // Then check if the filters are applied and filter Categories and subCategory
     if (filters.category.length > 0) {
-      console.log(`Filtering by category: ${JSON.stringify(filters.category)}`)
+      // console.log(`Filtering by category: ${JSON.stringify(filters.category)}`)
       filteredProducts = filteredProducts.filter(pr =>
         filters.category.includes(pr.category)
       )
     }
     if (filters.subCategory.length > 0) {
-      console.log(
-        `Filtering by subCategory: ${JSON.stringify(filters.subCategory)}`
-      )
+      // console.log(
+      //   `Filtering by subCategory: ${JSON.stringify(filters.subCategory)}`
+      // )
       filteredProducts = filteredProducts.filter(pr =>
         filters.subCategory.includes(pr.subCategory)
       )
     }
     setFilteredProducts(filteredProducts)
     // console.log(`Filtered Products: ${JSON.stringify(filteredProducts)}`)
-  }, [filters, products])
+  }, [filters, products, searchQuery])
 
   // To apply Sorting whenever Sort Stat changes
   useEffect(() => {
