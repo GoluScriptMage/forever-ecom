@@ -1,5 +1,5 @@
 import { products } from '../assets/assets'
-import { Children, createContext, useContext } from 'react'
+import { Children, createContext, useContext, useState } from 'react'
 
 const cartContext = createContext()
 
@@ -7,17 +7,21 @@ const cartContext = createContext()
 export const useCartContext = () => useContext(cartContext)
 
 const CartContextProvider = ({ children }) => {
-  const productList = products.slice(0, 10)
+  // const productList = products.slice(0, 10)
   const bestSeller = products.filter((item) => item.bestseller === true);
-  console.log(`CartContextProvider products:`, productList)
 
-  // You can add more state and functions here as needed
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchVisible, setSearchVisible] = useState(true);
 
   const values = {
     currency: '$',
     deliveryFee: 10,
-    products: productList,
+    products: products,
     bestSeller: bestSeller?.slice(0, 5),
+    searchQuery,
+    setSearchQuery,
+    searchVisible,
+    setSearchVisible,
   }
 
   return <cartContext.Provider value={values}>{children}</cartContext.Provider>
