@@ -2,10 +2,10 @@ import React from 'react'
 
 const Title = ({ text1, text2, description }) => {
   return (
-    <div className="text-center py-8">
+    <div className="text-center py-2">
       <div className="inline-flex gap-2 items-center mb-3">
         <p className="w-8 sm:w-12 h-[1px] sm:h-[2px] bg-gray-700"></p>
-        <p className="text-gray-700 text-lg sm:text-4xl font-light">
+        <p className="text-gray-700 text-2xl sm:text-4xl font-light">
           {text1}
           <span className="text-gray-700 font-medium"> {text2}</span>
         </p>
