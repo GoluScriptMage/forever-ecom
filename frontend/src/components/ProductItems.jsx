@@ -3,6 +3,8 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const ProductItems = ({product, currency}) => {
+  
+  // console.log(`Rendering ProductItems for product: ${JSON.stringify(product)}`);
   return (
     <NavLink
       to={`/product/${product._id}`}
@@ -11,8 +13,7 @@ const ProductItems = ({product, currency}) => {
       {/* Product Image Container */}
       <div className="relative overflow-hidden bg-gray-50 rounded-lg mb-3">
         <img
-          src={product.image
-          }
+          src={product.image[0]}
           alt={product.title}
           className="w-full h-64 sm:h-72 object-cover transition-all duration-500 group-hover:scale-110"
           //   onError={(e) => {
