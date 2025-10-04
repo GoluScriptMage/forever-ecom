@@ -11,7 +11,7 @@ const CartContextProvider = ({ children }) => {
   const bestSeller = products.filter((item) => item.bestseller === true);
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchVisible, setSearchVisible] = useState(true);
+  const [searchVisible, setSearchVisible] = useState(false);
 
   const values = {
     currency: '$',
