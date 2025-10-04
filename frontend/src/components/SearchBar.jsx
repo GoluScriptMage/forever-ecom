@@ -1,11 +1,11 @@
 import { assets } from '../assets/assets'
 import React, { useEffect, useRef } from 'react'
-import { useCartContext } from '../context/cartContext'
+import { useAppContext } from '../context/AppContext'
 import { useLocation } from 'react-router-dom'
 
 const SearchBar = () => {
   const { searchVisible, setSearchVisible, setSearchQuery, searchQuery } =
-    useCartContext()
+    useAppContext()
   const location = useLocation().pathname
   const inputRef = useRef(null)
 
@@ -25,7 +25,7 @@ const SearchBar = () => {
 
   // Update SeachQuery in Context using Ref
   const handleInput = () => {
-    if (!inputRef.current) return;
+    if (!inputRef.current) return
     const value = inputRef.current.value // get the current value of Input
     setSearchQuery(value) // update the context value
   }

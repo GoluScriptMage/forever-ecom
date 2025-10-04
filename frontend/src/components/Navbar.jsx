@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets.js'
 import { Link, NavLink } from 'react-router-dom'
-import { useCartContext } from '../context/cartContext.jsx'
+import { useAppContext } from '../context/AppContext.jsx'
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false)
   // NOTE: Consider adding search functionality
 
-  const { setSearchVisible, searchVisible } = useCartContext();
+  const { setSearchVisible, searchVisible } = useAppContext()
 
   return (
     // logo

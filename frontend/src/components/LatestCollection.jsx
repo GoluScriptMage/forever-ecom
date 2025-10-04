@@ -1,10 +1,10 @@
-import { useCartContext } from '../context/cartContext'
+import { useAppContext } from '../context/AppContext'
 import React from 'react'
 import ProductItems from './ProductItems'
 import Title from './Title'
 
 const LatestCollection = () => {
-  const { products, currency } = useCartContext()
+  const { products, currency } = useAppContext()
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8">
@@ -15,8 +15,7 @@ const LatestCollection = () => {
           text2="COLLECTION"
           description="Discover our newest arrivals featuring the latest trends and premium quality pieces"
         />
-˳
-        {/* Products Grid */}
+        ˳{/* Products Grid */}
         <div className="mt-12">
           {products && products.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6 sm:gap-6 lg:gap-8">
@@ -33,7 +32,8 @@ const LatestCollection = () => {
               {[...Array(10)].map((_, index) => (
                 <div key={index} className="animate-pulse">
                   <div className="bg-gray-200 rounded-lg h-64 sm:h-72 mb-3"></div>
-                  <div className="space-y-2">˳
+                  <div className="space-y-2">
+                    ˳
                     <div className="h-4 bg-gray-200 rounded w-3/4 mx-auto"></div>
                     <div className="h-4 bg-gray-200 rounded w-1/2 mx-auto"></div>
                   </div>
@@ -42,7 +42,6 @@ const LatestCollection = () => {
             </div>
           )}
         </div>
-
         {/* View All Button */}
         <div className="text-center mt-12">
           <button className="group inline-flex items-center gap-2 bg-black text-white px-8 py-3 rounded-full font-medium text-sm transition-all duration-300 hover:bg-gray-800 hover:scale-105 hover:shadow-lg">

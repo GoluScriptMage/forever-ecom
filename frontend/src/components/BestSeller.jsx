@@ -1,10 +1,10 @@
-import { useCartContext } from '../context/cartContext'
+import { useAppContext } from '../context/AppContext'
 import React from 'react'
 import ProductItems from './ProductItems'
 import Title from './Title'
 
 const BestSeller = () => {
-  const { bestSeller, currency } = useCartContext()
+  const { bestSeller, currency } = useAppContext()
   console.log('BestSeller component bestSeller:', bestSeller)
 
   return (
