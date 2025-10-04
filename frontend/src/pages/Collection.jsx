@@ -2,7 +2,7 @@ import Title from '../components/Title'
 import Filters from '../components/Filters'
 import React, { useEffect, useState } from 'react'
 import SortOptions from '../components/SortOptions'
-import { useCartContext } from '../context/cartContext'
+import { useAppContext } from '../context/AppContext'
 import Product from './Product'
 import ProductItems from '../components/ProductItems'
 
@@ -12,8 +12,8 @@ const Collection = () => {
     category: [],
     subCategory: [],
   })
-  const [filteredProducts, setFilteredProducts] = useState([]); // For Final Filtered Products ready to display
-  const { products, currency, searchQuery } = useCartContext();
+  const [filteredProducts, setFilteredProducts] = useState([]) // For Final Filtered Products ready to display
+  const { products, currency, searchQuery } = useAppContext()
 
   // To save the checkbox changes in State
   const toggleFilter = (filterType, value) => {
@@ -25,16 +25,21 @@ const Collection = () => {
       return { ...prev, [filterType]: newValues }
     })
   }
-  
+
   // To apply the filters when needed (e.g.. on button click)
   useEffect(() => {
     // Create a copy of products to filter
-    let filteredProducts = [...products];
+    let filteredProducts = [...products]
 
     // Apply filters on Search Query first
     if (searchQuery) {
-      console.log(`Filtering by search query: ${searchQuery}`);
-      filteredProducts = filteredProducts.filter(pr => pr.name.toLowerCase().split(' ').some(word => word.startsWith(searchQuery.trim().toLowerCase())));
+      console.log(`Filtering by search query: ${searchQuery}`)
+      filteredProducts = filteredProducts.filter(pr =>
+        pr.name
+          .toLowerCase()
+          .split(' ')
+          .some(word => word.startsWith(searchQuery.trim().toLowerCase()))
+      )
     }
 
     // Then check if the filters are applied and filter Categories and subCategory
@@ -58,7 +63,7 @@ const Collection = () => {
 
   // To apply Sorting whenever Sort Stat changes
   useEffect(() => {
-    console.log(`Sorting products by: ${sort}`);
+    console.log(`Sorting products by: ${sort}`)
     switch (sort) {
       case 'low-high': {
         setFilteredProducts(prev => [...prev].sort((a, b) => a.price - b.price))
@@ -74,7 +79,6 @@ const Collection = () => {
       }
     }
   }, [sort])
-
 
   return (
     <div className="container mx-auto px-4 lg:px-8 py-8">
