@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets.js'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useAppContext } from '../context/AppContext.jsx'
+import { useCartContext } from '../context/CartContextProvider.jsx'
+
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false)
   // NOTE: Consider adding search functionality
+  const showSearchIcon = useLocation().pathname === '/collection' ? true : false; 
 
   const { setSearchVisible, searchVisible } = useAppContext()
+  const { totalItems } = useCartContext().cartState
+
+  console.log(`Total Items in Cart: ${totalItems}`)
 
   return (
     // logo
@@ -38,12 +44,12 @@ const Navbar = () => {
 
       {/* Right side icons */}
       <div className="flex items-center gap-6">
-        <img
-          src={assets.search_icon}
+        {showSearchIcon && (
+          <img src={assets.search_icon}
           className="w-5 cursor-pointer"
           alt="Search"
           onClick={() => setSearchVisible(!searchVisible)}
-        />
+        />)}
 
         <div className="group relative">
           <img
@@ -65,7 +71,7 @@ const Navbar = () => {
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} className="w-5 min-w-5" alt="Cart" />
           <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
-            10
+            {totalItems || 0}
           </p>
         </Link>
 

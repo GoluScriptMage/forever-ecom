@@ -16,42 +16,71 @@ const calculateCartTotals = cart => {
   let totalItems = 0
 
   cart.forEach(item => {
-    totalAmount += item.quantity * item.price
-    totalItems += item.quantity
+    // Use default of 1 if quantity is undefined or null
+    const itemQuantity = Number(item.quantity) || 1
+    const itemPrice = Number(item.price) || 0
+
+    // Add to totals with parsed numbers
+    totalAmount += itemQuantity * itemPrice
+    totalItems += itemQuantity
   })
-  return { totalAmount, totalItems }
+
+  // Ensure we return valid numbers (not NaN)
+  return {
+    totalAmount: isNaN(totalAmount) ? 0 : totalAmount,
+    totalItems: isNaN(totalItems) ? 0 : totalItems,
+  }
 }
 
 export const cartReducer = (state, action) => {
   switch (action.type) {
     // Add to cart
     case cartActions.ADD_TO_CART: {
-      const { _id, size, quantity, price, name, image } = action.payload
-      let cartCopy = [...state.cart]
+      // Destructure with default values for missing properties
+      const {
+        _id,
+        size = 'default',
+        quantity = 1,
+        price,
+        name,
+        image,
+      } = action.payload
+      // Check for existing item with same ID and size
+      const existingItemIndex = state.cart.findIndex(
+        item => item._id === _id && item.size === size
+      )
+      let newCart
 
-      const itemExist = cartCopy.find(item => item._id === _id)
-
-      // Check if item already exist in cart
-      if (itemExist) {
-        // if size same
-        if (itemExist.size === size) {
-          itemExist.quantity += quantity
-        } else {
-          // If size is different
-          cartCopy.push({ _id, size, quantity, price, name, image })
+      // Check if item with same ID and size exists
+      if (existingItemIndex !== -1) {
+        // Item with same ID and size exists - update quantity
+        newCart = [...state.cart]
+        const existingQuantity = newCart[existingItemIndex].quantity || 1
+        newCart[existingItemIndex] = {
+          ...newCart[existingItemIndex],
+          quantity: existingQuantity + quantity,
+          size: size, // Ensure size is set
         }
       } else {
-        // If item doesn't exist
-        cartCopy.push({ _id, size, quantity, price, name, image })
+        // Either item doesn't exist or has different size - add as new
+        newCart = [
+          ...state.cart,
+          {
+            _id,
+            size,
+            quantity,
+            price: price || 0,
+            name: name || 'Product',
+            image: image || [],
+          },
+        ]
       }
 
-      const { totalAmount, totalItems } = calculateCartTotals(cartCopy)
-
-      console.log(`Cart Copy: ${JSON.stringify(cartCopy)}`);
+      const { totalAmount, totalItems } = calculateCartTotals(newCart)
 
       return {
         ...state,
-        cart: cartCopy,
+        cart: newCart,
         totalItems,
         totalAmount,
       }
@@ -59,23 +88,34 @@ export const cartReducer = (state, action) => {
 
     // Remove from Cart
     case cartActions.REMOVE_FROM_CART: {
-      const { id, size, quantity } = action.payload
-      let cartCopy = [...state.cart]
+      const { _id, size = 'default', quantity = 1 } = action.payload
 
-      // getting the current item with same id and size
-      const currentItemExist = cartCopy.find(
-        item => item.id === id && item.size === size
+      // Find the item index
+      const itemIndex = state.cart.findIndex(
+        item => item._id === _id && item.size === size
       )
 
-      // Check if the item quantity is 1 then remove it from cart
-      if (currentItemExist.quantity === 1 && quantity === 1) {
-        cartCopy = cartCopy.filter(item => item.id !== id && item.size !== size)
+      // If item not found, return unchanged state
+      if (itemIndex === -1) {
+        console.log('Item not found in cart, no changes made')
+        return state
       }
 
-      // If payload quantity is more than 1 then decrease the qunatity by paylaod quantity
-      if (quantity > 1 && currentItemExist.quantity >= quantity) {
-        currentItemExist.quantity -= quantity
+      let cartCopy = [...state.cart]
+      const currentItem = cartCopy[itemIndex]
+
+      // If removing all or more than available, remove the item completely
+      if (quantity >= currentItem.quantity) {
+        cartCopy = cartCopy.filter((_, index) => index !== itemIndex)
+      } else {
+        // Otherwise decrease the quantity
+
+        cartCopy[itemIndex] = {
+          ...currentItem,
+          quantity: currentItem.quantity - quantity,
+        }
       }
+
       const { totalAmount, totalItems } = calculateCartTotals(cartCopy)
 
       return {
@@ -93,6 +133,8 @@ export const cartReducer = (state, action) => {
       }
     }
   }
-  // Default Cart
+
+  // If we reach here, no case matched so return unchanged state
+  console.log('Unknown action type in cart reducer:', action.type)
   return state
 }
