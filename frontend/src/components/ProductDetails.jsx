@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { assets } from '../assets/assets'
 import { useCartContext } from '../context/CartContextProvider'
 import { cartActions } from '../context/cartReducer'
+import { toast } from 'react-toastify'
 
 const ProductDetails = ({ currency, currentProduct }) => {
   const [imageIndex, setImageIndex] = useState(0)
@@ -122,12 +123,22 @@ const ProductDetails = ({ currency, currentProduct }) => {
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 mb-6">
             <button
-              onClick={() =>
+              onClick={() => {
+                if (!size) {
+                  toast.error('Please select a size', {
+                    position: 'top-right',
+                  })
+                  return
+                }
                 dispatchCart({
                   type: cartActions.ADD_TO_CART,
-                  payload: { ...currentProduct },
+                  payload: {
+                    ...currentProduct,
+                    size: size,
+                    quantity: 1,
+                  },
                 })
-              }
+              }}
               className="w-full sm:w-auto bg-gray-900 text-white px-5 py-3 rounded-md font-medium hover:bg-black transition"
             >
               Add to Cart
