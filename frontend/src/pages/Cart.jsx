@@ -1,11 +1,26 @@
+import { Navigate, useNavigate } from 'react-router-dom'
 import Title from '../components/Title'
 import { useCartContext } from '../context/CartContextProvider'
 import { cartActions } from '../context/cartReducer'
 import React from 'react'
+import { toast } from 'react-hot-toast'
 
 const Cart = () => {
   const { cartState, dispatchCart } = useCartContext()
-  const { cart } = cartState
+  const { cart } = cartState;
+  const navigate = useNavigate();
+
+  // Implement checkout logic
+  const handleCheckout = () => {
+    // Check if cart value is greater than zero
+    if(cartState.totalAmount <= 0) {
+      return toast.error('Your cart is empty. Please add items to proceed to checkout.')
+    } 
+
+    // proceed to address filling page
+    navigate('/place-order');
+    
+  }
 
   console.log('Cart component rendered with:', cart)
 
@@ -122,7 +137,7 @@ const Cart = () => {
                   <span>Total</span>
                   <span>${cartState.totalAmount + cartState.deliveryFee}</span>
                 </div>
-                <button className="w-full mt-4 bg-gray-900 text-white px-5 py-3 rounded-md font-medium hover:bg-black transition">
+                <button onClick={handleCheckout} className="w-full mt-4 bg-gray-900 text-white px-5 py-3 rounded-md font-medium hover:bg-black transition">
                   Proceed to Checkout
                 </button>
               </div>

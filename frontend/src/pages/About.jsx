@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify'
 
 function About() {
-  const showToastDemo = (type) => {
-    switch(type) {
+  const showToastDemo = type => {
+    switch (type) {
       case 'success':
         toast.success('Success toast! 🎉')
         break
@@ -34,7 +34,9 @@ function About() {
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           <div className="bg-white rounded-lg shadow-xl p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">🚀 Tech Stack</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+              🚀 Tech Stack
+            </h2>
             <ul className="space-y-3 text-gray-600">
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
@@ -60,7 +62,9 @@ function About() {
           </div>
 
           <div className="bg-white rounded-lg shadow-xl p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">🎯 Features</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+              🎯 Features
+            </h2>
             <ul className="space-y-3 text-gray-600">
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
@@ -87,9 +91,14 @@ function About() {
         </div>
 
         <div className="bg-white rounded-lg shadow-xl p-8 text-center">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">🍞 Toast Notification Demo</h2>
-          <p className="text-gray-600 mb-6">Click the buttons below to see different types of toast notifications:</p>
-          
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+            🍞 Toast Notification Demo
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Click the buttons below to see different types of toast
+            notifications:
+          </p>
+
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={() => showToastDemo('success')}

@@ -12,7 +12,8 @@ import Orders from './pages/Orders'
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
 import { ToastContainer } from 'react-toastify'
-
+import PlaceOrder from './pages/PlaceOrder'
+import SignUp from './pages/SignUp'
 
 const App = () => {
   return (
@@ -24,11 +25,14 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/place-order" element={<PlaceOrder />} />
+        <Route path="/my-orders" element={<Orders />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
       </Routes>
       <Footer />
     </div>
