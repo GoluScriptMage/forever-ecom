@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets.js'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useAppContext } from '../context/AppContext.jsx'
 import { useCartContext } from '../context/CartContextProvider.jsx'
 
@@ -9,6 +9,7 @@ const Navbar = () => {
   const [visible, setVisible] = useState(false)
   // NOTE: Consider adding search functionality
   const showSearchIcon = useLocation().pathname === '/collection' ? true : false; 
+  const navigate = useNavigate();
 
   const { setSearchVisible, searchVisible } = useAppContext()
   const { totalItems } = useCartContext().cartState
@@ -63,7 +64,7 @@ const Navbar = () => {
               <Link to="/orders" className="cursor-pointer hover:text-black">
                 Orders
               </Link>
-              <p className="cursor-pointer hover:text-black">Logout</p>
+              <Link onClick={() => setTimeout(() => navigate('/login'), 600)} className="l-0 cursor-pointer hover:text-black">Logout</Link>
             </div>
           </div>
         </div>

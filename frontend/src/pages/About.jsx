@@ -1,135 +1,59 @@
-import { toast } from 'react-toastify'
+import React from 'react'
+import Title from '../components/Title'
+import { assets } from '../assets/assets'
 
-function About() {
-  const showToastDemo = type => {
-    switch (type) {
-      case 'success':
-        toast.success('Success toast! 🎉')
-        break
-      case 'error':
-        toast.error('Error toast! ❌')
-        break
-      case 'warning':
-        toast.warning('Warning toast! ⚠️')
-        break
-      case 'info':
-        toast.info('Info toast! ℹ️')
-        break
-      default:
-        toast('Default toast! 👋')
-    }
-  }
-
+const About = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-800 mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            About Imagine Stack
-          </h1>
-          <p className="text-xl text-gray-600">
-            A modern full-stack development setup with all the tools you need
-          </p>
-        </div>
+    <div className="min-h-screen bg-gray-50 py-12 px-4">
+      <div className="container mx-auto max-w-6xl">
+        <Title text1="About" text2="Us" frontDash={false} />
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="bg-white rounded-lg shadow-xl p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              🚀 Tech Stack
-            </h2>
-            <ul className="space-y-3 text-gray-600">
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                React 18 with modern hooks
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                Vite for lightning-fast development
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
-                Tailwind CSS v3 for styling
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
-                React Router for navigation
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-red-500 rounded-full mr-3"></span>
-                React Toastify for notifications
-              </li>
-            </ul>
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          {/* Image */}
+          <div className="order-first lg:order-last flex justify-center lg:justify-end">
+            <img
+              src={assets.about_img}
+              alt="About"
+              className="w-full max-w-md rounded-lg shadow-md object-cover"
+            />
           </div>
 
-          <div className="bg-white rounded-lg shadow-xl p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              🎯 Features
-            </h2>
-            <ul className="space-y-3 text-gray-600">
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
-                Hot module replacement (HMR)
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-teal-500 rounded-full mr-3"></span>
-                Responsive design patterns
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></span>
-                Modern CSS with utilities
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
-                Client-side routing
-              </li>
-              <li className="flex items-center">
-                <span className="w-2 h-2 bg-cyan-500 rounded-full mr-3"></span>
-                Toast notifications
-              </li>
-            </ul>
-          </div>
-        </div>
+          {/* Text content */}
+          <div className="prose max-w-none">
+            <h2 className="text-2xl font-semibold text-gray-900">Who we are</h2>
+            <p className="text-gray-700 mt-4">
+              Imagine Stack is a curated e-commerce platform focused on quality,
+              simplicity, and value. We design experiences that are clean,
+              responsive, and easy to use across devices.
+            </p>
 
-        <div className="bg-white rounded-lg shadow-xl p-8 text-center">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-            🍞 Toast Notification Demo
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Click the buttons below to see different types of toast
-            notifications:
-          </p>
+            <h3 className="mt-6 text-lg font-medium text-gray-900">
+              What we do
+            </h3>
+            <p className="text-gray-700 mt-2">
+              We source thoughtful products and present them through a modern
+              shopping experience that emphasizes clarity, performance, and
+              trust.
+            </p>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <button
-              onClick={() => showToastDemo('success')}
-              className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors"
-            >
-              Success Toast
-            </button>
-            <button
-              onClick={() => showToastDemo('error')}
-              className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors"
-            >
-              Error Toast
-            </button>
-            <button
-              onClick={() => showToastDemo('warning')}
-              className="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition-colors"
-            >
-              Warning Toast
-            </button>
-            <button
-              onClick={() => showToastDemo('info')}
-              className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-            >
-              Info Toast
-            </button>
-            <button
-              onClick={() => showToastDemo('default')}
-              className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors"
-            >
-              Default Toast
-            </button>
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-white rounded-md p-4 shadow-sm">
+                <div className="text-sm font-semibold text-gray-900">
+                  Quality
+                </div>
+                <div className="text-sm text-gray-600 mt-1">
+                  Carefully selected products
+                </div>
+              </div>
+              <div className="bg-white rounded-md p-4 shadow-sm">
+                <div className="text-sm font-semibold text-gray-900">
+                  Fast Delivery
+                </div>
+                <div className="text-sm text-gray-600 mt-1">
+                  Reliable shipping partners
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
